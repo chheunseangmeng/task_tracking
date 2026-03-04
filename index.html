@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Tracking</title>
+    <link rel="stylesheet" href="./src/style/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar - Projects List -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h1>Task Tracking</h1>
+          <p class="workspace-hint">By Mengify</p>
+        </div>
+
+        <div class="projects-section">
+          <div class="section-header">
+            <h2>Projects</h2>
+            <button
+              class="add-project-btn"
+              id="addProjectBtn"
+              title="New Project"
+            >
+              +
+            </button>
+          </div>
+
+          <div class="projects-list" id="projectsList">
+            <!-- Projects will be dynamically added here -->
+          </div>
+        </div>
+
+        <div class="bottom-stats">
+          <div class="total-stats">
+            <span>📊 Total Tasks</span>
+            <strong id="totalTasksCount">0</strong>
+          </div>
+          <div class="total-stats">
+            <span>✅ Completed</span>
+            <strong id="totalCompletedCount">0</strong>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content - Tasks for Selected Project -->
+      <main class="main-content">
+        <!-- Project Header -->
+        <div class="project-header" id="projectHeader">
+          <div class="project-title-section">
+            <h2 id="currentProjectName">Select a project</h2>
+            <div class="project-actions">
+              <button class="icon-btn" id="editProjectBtn" title="Edit Project">
+                ✎
+              </button>
+              <button
+                class="icon-btn"
+                id="deleteProjectBtn"
+                title="Delete Project"
+              >
+                🗑
+              </button>
+            </div>
+          </div>
+          <div class="project-progress">
+            <div class="progress-text">
+              <span id="projectTaskCount">0 tasks</span>
+              <span id="projectCompletedCount">0 completed</span>
+            </div>
+            <div class="progress-bar-container">
+              <div
+                class="progress-bar"
+                id="projectProgressBar"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State - No Project Selected -->
+        <div class="empty-project-state" id="emptyProjectState">
+          <div class="empty-illustration">
+            <span class="large-icon">📌</span>
+          </div>
+          <h3>No project selected</h3>
+          <p>Choose a project from the sidebar or create a new one</p>
+          <button class="primary-btn" id="emptyStateCreateBtn">
+            + Create New Project
+          </button>
+        </div>
+
+        <!-- Project Content (Hidden when no project selected) -->
+        <div class="project-content" id="projectContent" style="display: none">
+          <!-- Add Task -->
+          <div class="add-task-container">
+            <div class="add-task-wrapper">
+              <input
+                type="text"
+                id="taskInput"
+                placeholder="Add a new task... Press Enter to save"
+                autocomplete="off"
+              />
+              <button class="add-task-btn" id="addTaskBtn">Add Task</button>
+            </div>
+
+            <!-- Status Filters -->
+            <div class="task-filters">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="todo">To Do</button>
+              <button class="filter-btn" data-filter="develop">Develop</button>
+              <button class="filter-btn" data-filter="done">Done</button>
+            </div>
+          </div>
+
+          <!-- Tasks List -->
+          <div class="tasks-wrapper">
+            <div class="tasks-header">
+              <span class="tasks-count" id="tasksCount">0 tasks</span>
+              <button class="clear-completed-btn" id="clearCompletedBtn">
+                Clear completed
+              </button>
+            </div>
+
+            <div class="tasks-list" id="tasksList">
+              <!-- Tasks will be added here -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Edit Project Modal -->
+    <div class="modal" id="editProjectModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Project</h3>
+          <button class="close-modal" id="closeEditModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label for="editProjectName">Project Name</label>
+          <input
+            type="text"
+            id="editProjectName"
+            placeholder="Enter project name"
+          />
+        </div>
+        <div class="modal-footer">
+          <button class="secondary-btn" id="cancelEditBtn">Cancel</button>
+          <button class="primary-btn" id="saveEditBtn">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Project Modal -->
+    <div class="modal" id="newProjectModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Create New Project</h3>
+          <button class="close-modal" id="closeNewModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label for="newProjectName">Project Name</label>
+          <input
+            type="text"
+            id="newProjectName"
+            placeholder="e.g., Website Redesign, Mobile App, Marketing"
+          />
+        </div>
+        <div class="modal-footer">
+          <button class="secondary-btn" id="cancelNewBtn">Cancel</button>
+          <button class="primary-btn" id="createProjectBtn">
+            Create Project
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./src/js/main.js"></script>
+  </body>
+</html>
